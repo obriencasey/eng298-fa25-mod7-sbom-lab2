@@ -24,15 +24,7 @@ x
 x
 
 ### **Environment Setup**
-1. All commands can be executed directly inside your GitHub Codespace using this repo.  
-
-2. Confirm you’re running Ubuntu:
-
-```bash
-lsb_release -a
-```
-Typical output:  
-`Description: Ubuntu 22.04 LTS (Jammy Jellyfish)`
+All commands can be executed directly inside your GitHub Codespace using this repo.  
 
 #### **Part 1 – Generate Baseline System Information**
 Before generating SBOMs, collect information about the current Ubuntu system in your Codespace:
@@ -50,10 +42,6 @@ Before generating SBOMs, collect information about the current Ubuntu system in 
    dpkg -l > ../deliverables/before_patch.txt
    ```
    
-3. Review the file `system_sbom_before.json`.  
-   - How many packages are listed?  
-   - Note examples of key utilities (e.g., bash, curl, python3).
-
 #### **Part 2 – Generate Baseline SBOM and Vulnerability Report**
 1. Use Syft to create a system-level SBOM of APT-managed packages:
 
@@ -98,23 +86,31 @@ grype sbom:../deliverables/system_sbom_before.json -o table > ../deliverables/sy
     ```
 (If no packages are listed, all updates were applied).
 
-#### **Part 4 – Re-Scan After Updates**
-1. Regenerate the SBOM:
-   
+#### **Part 4 – post-Update Analysis**
+1. Take a second snapshot - save the updated package list as *after_patch.txt* inside your `/deliverables` folder:
+
    ```bash
-   syft packages:apt -o spdx-json > system_sbom_after.json
+   dpkg -l > ../deliverables/after_patch.txt:
    ```
-   
-3. Re-run the vulnerability scan:
-   
+2. Regenerate the SBOM after updates:
+
    ```bash
-   grype sbom:system_sbom_after.json -o table > system_vulns_after.txt
+   syft packages:apt -o spdx-json > ../deliverables/system_sbom_after.json
    ```
-   
-5. Compare your “before” and “after” results.  
-   - Did the number or severity of vulnerabilities change?  
-   - What patterns do you notice?  
-   - How does patching contribute to system assurance?
+
+3. Re-scan for vulnerabilities:
+
+   ```bash
+   grype sbom:../deliverables/system_sbom_after.json -o table > ../deliverables/system_vulns_after.txt
+   ```
+
+4. Compare the before and after snapshots: Use the `diff` command to view changes between *before_patch.txt* and *after_patch.txt*:
+
+   ```bash
+   diff ../deliverables/before_patch.txt ../deliverables/after_patch.txt > ../deliverables/patch_diff.txt
+   ```
+
+5. Review the resulting file (*patch_diff.txt*) to identify which packages were updated or removed.
 
 #### **Part 5 – Reflection**
 Answer the following in 2–3 sentences each:
