@@ -79,7 +79,7 @@ Before generating SBOMs, collect information about the current Ubuntu system in 
 1. Use Syft to create a system-level SBOM of APT-managed packages:
 
 ```bash
-syft packages:apt -o spdx-json > deliverables/system_sbom_before.json
+syft packages dir:/ -o spdx-json > deliverables/system_sbom_before.json
 ``` 
 
 2. Use Grype to scan the SBOM for known vulnerabilities:
