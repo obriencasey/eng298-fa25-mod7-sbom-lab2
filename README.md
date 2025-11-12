@@ -116,7 +116,7 @@ grype sbom:deliverables/system_sbom_before.json -o table > deliverables/system_v
    sudo apt list --upgradable
    ```
    
-3. If packages are listed, choose at least three (3) and record their current and target versions. If no packages are listed (only `“Listing… Done”`), record that your system is already fully up-to-date and note this in your reflection and jump to Part 4.
+3. If packages are listed, choose at least three (3) and record their current and target versions. Continue with the next step (4. Apply system updates). **NOTE**: If no packages are listed (only `“Listing… Done”`), record that your system is already fully up-to-date and note this in your reflection and jump to Part 4: Post-Update Analysis.
    
 4. Apply system updates:
 
