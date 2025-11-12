@@ -17,8 +17,11 @@ After completing this lab, you will be able to:
 4. Explain how patching operational environments supports *complete mediation* and *assurance* in the secure design lifecycle.
 
 ### **Terminology**
-**Packages**:
-**apt**: 
+**Packages**
+x
+
+**apt**
+x
 
 ### **Environment Setup**
 1. All commands can be executed directly inside your GitHub Codespace using this repo.  
@@ -31,8 +34,6 @@ lsb_release -a
 Typical output:  
 `Description: Ubuntu 22.04 LTS (Jammy Jellyfish)`
 
-### **Tasks**
-
 #### **Part 1 – Generate Baseline System Information**
 Before generating SBOMs, collect information about the current Ubuntu system in your Codespace:
 
@@ -42,6 +43,7 @@ Before generating SBOMs, collect information about the current Ubuntu system in 
    uname -a
    lsb_release
    ```
+   
 2. View currently installed packages and save the output in *before_patch.txt* inside your `/deliverables` folder:
     
    ```bash
@@ -69,20 +71,32 @@ grype sbom:../deliverables/system_sbom_before.json -o table > ../deliverables/sy
 - Total number of packages detected
 - Number of vulnerabilities by severity (Critical, High, Medium, Low)
 
-#### **Part 3 – Apply System Updates**
-1. Apply upgrades:
+#### **Part 3 – Identify and Apply System Updates**
+1. Update the package database:
    
+   ```bash
+   sudo apt update
+   ```
+   
+2. List available updates
+
+   ```bash
+   sudo apt list --upgradable
+   ```
+   
+3. Identify at least three (3) packages to update. Record their current and target versions.
+   
+4. Apply system updates:
+
    ```bash
    sudo apt upgrade -y
    ```
-   
-3. Verify that updates were applied successfully:
-   
-   ```bash
-   apt list --upgradable
-   ```
-   
-   (Ideally, no packages should remain upgradable.)
+5. Verify updates were applied successfully:
+
+    ```bash
+    sudo apt list --upgradable
+    ```
+(If no packages are listed, all updates were applied).
 
 #### **Part 4 – Re-Scan After Updates**
 1. Regenerate the SBOM:
