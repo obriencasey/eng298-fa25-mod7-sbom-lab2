@@ -16,6 +16,10 @@ After completing this lab, you will be able to:
 3. Apply and verify system updates using `apt`.  
 4. Explain how patching operational environments supports *complete mediation* and *assurance* in the secure design lifecycle.
 
+### **Terminology**
+**Packages**:
+**apt**: 
+
 ### **Environment Setup**
 1. All commands can be executed directly inside your GitHub Codespace using this repo.  
 
@@ -38,43 +42,32 @@ Before generating SBOMs, collect information about the current Ubuntu system in 
    uname -a
    lsb_release
    ```
-2. View currently installed packages and save the output as before_patch.txt inside your /deliverables folder:
+2. View currently installed packages and save the output in *before_patch.txt* inside your /deliverables folder:
     
    ```bash
    dpkg -l > ../deliverables/before_patch.txt
+   ```
    
-4. Review the file `system_sbom_before.json`.  
+3. Review the file `system_sbom_before.json`.  
    - How many packages are listed?  
    - Note examples of key utilities (e.g., bash, curl, python3).
 
-5. Generate an initial vulnerability report with **Grype**:
-   
-   ```bash
-   grype sbom:system_sbom_before.json -o table > system_vulns_before.txt
-   ```
-   
-6. Record:  
-   - Total vulnerabilities found  
-   - Counts by severity (Critical, High, Medium, Low)
+#### **Part 2 – Generate Baseline SBOM and Vulnerability Report**
+1. Use Syft to create a system-level SBOM of APT-managed packages:
 
-#### **Part 2 – Identify Outdated Packages**
-1.Take a snapshot of the packages currebntly installed on this Ubuntu VM as follows:
+```bash
+syft packages:apt -o spdx-json > ../deliverables/system_sbom_before.json
+``` 
 
+2. Use Grype to scan the SBOM for known vulnerabilities:
 
-2. Update your package database:
-   
-   ```bash
-   sudo apt update
-   ```
-   
-3. View packages with available upgrades:
-   
-   ```bash
-   sudo apt list --upgradable
-   ```
-   
-4. Choose at least **three (3)** upgradable packages to patch.
-   Record their current and target versions.
+```bash
+grype sbom:../deliverables/system_sbom_before.json -o table > ../deliverables/system_vulns_before.txt
+``` 
+
+3. Review and record:
+- Total number of packages detected
+- Number of vulnerabilities by severity (Critical, High, Medium, Low)
 
 #### **Part 3 – Apply System Updates**
 1. Apply upgrades:
