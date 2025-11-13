@@ -109,8 +109,8 @@ grype sbom:deliverables/system_sbom_before.json -o table > deliverables/system_v
 | **> deliverables/system_vulns_before.txt**| Standard shell redirection (*>*) that takes the previous command and saves it in a file names *system_vulns_before.txt* in the `deliverables` folder
 
 3. Review and record:
-* Total number of packages detected, and
-* Number of vulnerabilities by severity (Critical, High, Medium, Low).
+* Total number of packages detected,
+* Number of vulnerabilities by severity (Critical, High, Medium, Low),
 * In your `reflection.md` file, which you will create in the `deliverables` folder, select one CVE, locate it in the <b><a href="https://nvd.nist.gov/vuln">NVD Database</a></b>, and summarize its cause or impact in a few sentences.
 
 #### **Part 3 – Identify and Apply System Updates**
