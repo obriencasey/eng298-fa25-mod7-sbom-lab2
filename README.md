@@ -135,7 +135,7 @@ grype sbom:deliverables/system_sbom_before.json -o table > deliverables/system_v
 | **sudo** | Linux command, short for **superuser do**. Used to temporarily elevate your permissions so you can run the command as the root user
 | **apt** | Short for the Linux **Advanced Package Tool**, the package manager used on Debian-based Linux distributions (Ubuntu, Mint, Kali, etc.) to install, remove, and manage software packages
 | **list** | `apt` sub-command used to display a *list* of packages matching a certain condition
-| **--upgradable** | This flag filters the list to only packages that 1). Have a newer version available, and 2). Can be upgraded from the currently installed version. It does not install anything — just lists upgradeable packages
+| **--upgradable** | Flag used to filter the list to only packages that 1). Have a newer version available, and 2). Can be *upgraded* from the currently installed version. It does not install anything — just lists upgradeable packages
 
 Put together, this command line says, *"With admin privileges, show me all packages on this system that have updates available.”*
    
